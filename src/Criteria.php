@@ -41,12 +41,11 @@ final class Criteria extends BaseCriteria
         return [];
     }
 
-    /** Columns allowed in ORDER BY (falls back to filterable() when empty). */
-    protected function sortable(): array
-    {
-        $x = [ 'role_id', 'permission_id', 'effect', 'source', 'created_at' ];
-        return $x ?: $this->filterable();
-    }
+/** Columns allowed in ORDER BY (falls back to filterable() when empty). */
+protected function sortable(): array
+{
+    return [ 'role_id', 'permission_id', 'effect', 'source', 'created_at' ];
+}
 
     /**
      * Whitelist of joinable entities (for safe ->join() usage):
@@ -87,8 +86,8 @@ final class Criteria extends BaseCriteria
         $c = new static(); // previously: new self()
 
         $c->setDialectFromDatabase($db);
-        if ($quoteIdentifiers) { $c->quoteIdentifiers(true); }
-        if ($tenantId !== null) { $c->tenant($tenantId, $tenantColumn); }
+        if ($quoteIdentifiers) { $c->enableIdentifierQuoting(true); }
+        if ($tenantId !== null && $tenantColumn !== '') { $c->tenant($tenantId, $tenantColumn); }
 
         if (\method_exists(\BlackCat\Database\Packages\RbacRolePermissions\Definitions::class, 'softDeleteColumn')) {
             $soft = \BlackCat\Database\Packages\RbacRolePermissions\Definitions::softDeleteColumn();
@@ -99,15 +98,15 @@ final class Criteria extends BaseCriteria
 
     // --- Generated criteria helpers (per table) ---
     
-    public function byId(int|string $id): self {
-        return $this->where('t.role_id permission_id = :cid', ['cid' => $id]);
+    public function byId(int|string $id): static {
+        return $this->where('role_id permission_id', '=', $id);
     }
-    public function byIds(array $ids): self {
-        if (!$ids) return $this->where('1=0');
-        return $this->whereIn('t.role_id permission_id', array_values($ids));
+    public function byIds(array $ids): static {
+        if (!$ids) return $this->whereRaw('1=0');
+        return $this->where('role_id permission_id', 'IN', array_values($ids));
     }
-    public function createdBetween(?\DateTimeInterface $from, ?\DateTimeInterface $to): self {
-        return $this->range('t.created_at', $from, $to);
+    public function createdBetween(?\DateTimeInterface $from, ?\DateTimeInterface $to): static {
+        return $this->between('created_at', $from, $to);
     }
 
 }
