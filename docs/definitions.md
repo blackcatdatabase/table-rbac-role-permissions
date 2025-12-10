@@ -5,11 +5,11 @@ Permission rules bundled with RBAC roles.
 ## Columns
 | Column | Type | Null | Default | Description |
 | --- | --- | --- | --- | --- |
-| created_at | mysql: DATETIME(6) / postgres: TIMESTAMPTZ(6) | NO | CURRENT_TIMESTAMP(6) | Creation timestamp (UTC). |
-| effect | mysql: ENUM('allow','deny') / postgres: TEXT | NO | allow | Permit or deny flag. (enum: allow, deny) |
-| permission_id | BIGINT | NO |  | Permission identifier (FK permissions.id). |
 | role_id | BIGINT | NO |  | Role identifier (FK rbac_roles.id). |
+| permission_id | BIGINT | NO |  | Permission identifier (FK permissions.id). |
+| effect | mysql: ENUM('allow','deny') / postgres: TEXT | NO | allow | Permit or deny flag. (enum: allow, deny) |
 | source | mysql: ENUM('repo','local') / postgres: TEXT | NO | repo | Whether the rule came from repo or local overrides. (enum: repo, local) |
+| created_at | mysql: DATETIME(6) / postgres: TIMESTAMPTZ(6) | NO | CURRENT_TIMESTAMP(6) | Creation timestamp (UTC). |
 
 ## Engine Details
 
