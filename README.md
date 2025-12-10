@@ -98,9 +98,9 @@ graph LR
 _No engine differences detected._
 
 ## Constraints Snapshot
-- `source` – default=repo, enum
 - `created_at` – default=CURRENT_TIMESTAMP(6)
 - `effect` – default=allow, enum
+- `source` – default=repo, enum
 
 ## Schema Files
 | File | Engine |
