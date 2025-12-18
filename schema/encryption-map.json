@@ -1,0 +1,23 @@
+{
+  "tables": {
+    "rbac_role_permissions": {
+      "columns": {
+        "created_at": {
+          "strategy": "passthrough"
+        },
+        "effect": {
+          "strategy": "passthrough"
+        },
+        "permission_id": {
+          "strategy": "passthrough"
+        },
+        "role_id": {
+          "strategy": "passthrough"
+        },
+        "source": {
+          "strategy": "passthrough"
+        }
+      }
+    }
+  }
+}
